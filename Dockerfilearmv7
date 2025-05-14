@@ -1,8 +1,26 @@
 FROM arm32v7/python:3.11-slim
-COPY . /sing-box-subscribe
+
+# 安装必要的开发工具
+RUN apt-get update && apt-get install -y \
+    gcc \
+    make \
+    python3-dev \
+    libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# 设置工作目录
 WORKDIR /sing-box-subscribe
-RUN \
-    pip install --no-cache-dir --upgrade pip && \
+# 复制应用代码
+COPY . .
+# 复制依赖文件并安装
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
+
+
+
+# 暴露端口
 EXPOSE 5000
+
+# 启动应用
 CMD ["python", "api/app.py"]
