@@ -28,4 +28,4 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: qy2024/sinboxsub:sb1
-        platforms: linux/amd64,linux/arm64,linux/arm/v7  # 支持的平台列表
+        platforms: linux/amd64,linux/arm64 # 支持的平台列表
